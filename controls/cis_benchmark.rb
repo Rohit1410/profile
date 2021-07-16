@@ -10,24 +10,24 @@
     end
   end
   
-  control 'sshd configuration should not have any deprecations' do
-    describe command('sshd -t') do
-      its(:exit_status) { should eq 0 }
-      its(:stdout) { should eq '' }
-      its(:stderr) { should eq '' }
-    end
-  end
+#   control 'sshd configuration should not have any deprecations' do
+#     describe command('sshd -t') do
+#       its(:exit_status) { should eq 0 }
+#       its(:stdout) { should eq '' }
+#       its(:stderr) { should eq '' }
+#     end
+#   end
   
-  control 'deny root login' do
-    impact 0.9
-    title 'Ensure login disabled'
-    desc 'CIS benchmark to ensure that you cannot login as root'
-    describe sshd_config do
-      its('PermitRootLogin') {
-        should_not cmp 'yes'
-      }
-    end
-  end
+#   control 'deny root login' do
+#     impact 0.9
+#     title 'Ensure login disabled'
+#     desc 'CIS benchmark to ensure that you cannot login as root'
+#     describe sshd_config do
+#       its('PermitRootLogin') {
+#         should_not cmp 'yes'
+#       }
+#     end
+#   end
   
   control 'cis-dil-benchmark-1.1.15' do
     title 'Ensure nodev option set on /dev/shm partition'
@@ -66,23 +66,23 @@
     end
   end
   
-  title '5.2 SSH Server Configuration'
-  control 'cis-dil-benchmark-5.2.1' do
-    title 'Ensure permissions on /etc/ssh/sshd_config are configured (Scored)'
-    desc  '
-      The /etc/ssh/sshd_config file contains configuration specifications for sshd.
-      The commandn below sets the owner and group of the file to root.
-      Rationale: The /etc/ssh/sshd_config file needs to be protected from unauthorized changes by non-privileged users.
-    '
-    impact 1.0
-    tag cis: 'distribution-independent-linux:5.2.1'
-    describe file('/etc/ssh/sshd_config') do
-      it { should exist }
-      it { should_not be_writable.by 'group' }
-      it { should_not be_executable.by 'group' }
-      it { should_not be_writable.by 'other' }
-      it { should_not be_executable.by 'other' }
-      its('uid') { should cmp 0 }
-      its('gid') { should cmp 0 }
-    end
-  end
+#   title '5.2 SSH Server Configuration'
+#   control 'cis-dil-benchmark-5.2.1' do
+#     title 'Ensure permissions on /etc/ssh/sshd_config are configured (Scored)'
+#     desc  '
+#       The /etc/ssh/sshd_config file contains configuration specifications for sshd.
+#       The commandn below sets the owner and group of the file to root.
+#       Rationale: The /etc/ssh/sshd_config file needs to be protected from unauthorized changes by non-privileged users.
+#     '
+#     impact 1.0
+#     tag cis: 'distribution-independent-linux:5.2.1'
+#     describe file('/etc/ssh/sshd_config') do
+#       it { should exist }
+#       it { should_not be_writable.by 'group' }
+#       it { should_not be_executable.by 'group' }
+#       it { should_not be_writable.by 'other' }
+#       it { should_not be_executable.by 'other' }
+#       its('uid') { should cmp 0 }
+#       its('gid') { should cmp 0 }
+#     end
+#   end
